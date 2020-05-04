@@ -1,0 +1,202 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>はじめに &#8212; Pythonで学ぶ入門計量経済学</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/mystnb.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .secondtoggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="１. Pythonの基礎" href="part_1.html" />
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<!-- Put requirejs at the end so it's always after bootstrap -->
+<!-- TODO: remove this once https://github.com/pandas-dev/pydata-sphinx-theme/pull/149 is merged -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Pythonで学ぶ入門計量経済学</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+  <li class="active">
+    <a href="#">はじめに</a>
+  </li>
+  <li class="">
+    <a href="part_1.html">１. Pythonの基礎</a>
+  </li>
+  <li class="">
+    <a href="part_2.html">２. Pythonを使った計量経済分析</a>
+  </li>
+  <li class="">
+    <a href="part_3.html">３. 番外編</a>
+  </li>
+</ul>
+</nav>
+<p class="navbar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="../_sources/docs/introduction.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Edit this page -->
+        
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 col-xxl-7 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="id1">
+<h1>はじめに<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>「なぜプログラミング？」文系の経済学の学生が理系のプログラミングを学ぶとなると、まず頭に浮かぶ質問かも知れない。過去にも同じような質問を問うた経済学部の卒業生は多くいると思われる。例えば、Excelのようなスプレッドシートのソフトは1980年代からあり、当時の大学生も使い方を学ぶ際「なぜ？」と思ったことだろう。しかし今ではWord、Excel、PowerPointの使い方は、大学卒業生にとって当たり前のスキルになっている。同じように、AI（人工知能）やビッグデータが注目を浴びる社会では、プログラミングも経済学部卒業生にとって当たり前のスキルにな流のではと予測される。実際、文系出身でプログラミングとは縁のなかったある新聞社の記者の話では、社内で<code class="docutils literal notranslate"><span class="pre">Python</span></code>の研修を受け仕事に活かすことが期待されているらいし。また、プログラミングを学ぶ重要性を象徴するかのように、2020年度からは小学校でプログラミング的思考を育成する学習指導要領が実施され、続いて中高教育でもプログラミングに関する内容・科目が充実される予定である。このようにプログラミングのスキルの重要性は益々大きくなると思われる。</p>
+<p>「なぜ<code class="docutils literal notranslate"><span class="pre">Python</span></code>？」プログラミング言語は無数に存在し、それぞれ様々な特徴があり、お互いに影響し合い進化している。その過程で、広く使われ出す言語もあれば廃れていく言語もある。その中で<code class="docutils literal notranslate"><span class="pre">Python</span></code>は、注目を浴びる言語となっている。それを示す相対的な人気指標として<a class="reference external" href="https://insights.stackoverflow.com/trends?tags=java%2Cc%2B%2B%2Cpython%2Cc%23%2Cjavascript%2Cassembly%2Cphp%2Cr%2Cruby%2Cruby-on-rails&amp;fbclid=IwAR3nGm3GtZT99DnP6Ov-hW0-TmZoeePajsLOyRxZYSUjV3F8qbeiOcG-oak">Stack Overflow Trends</a>がある。</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../_images/many_languages.png"><img alt="../_images/many_languages.png" src="../_images/many_languages.png" style="width: 542.4px; height: 348.8px;" /></a>
+</div>
+<p>Stack Overflowとは、プログラミングに関する質問をすると参加者が回答するフォーラムであり、質の高い回答で定評があるサイトである。その英語版で、ある言語に関する質問が何％かを示しているのが図１である。2012年頃から<code class="docutils literal notranslate"><span class="pre">Python</span></code>は急上昇しているが、下降トレンドの言語が多い印象である。
+　　では、<code class="docutils literal notranslate"><span class="pre">Pythn</span></code>の人気はどこにあるのか？まず最初の理由は無料ということであろう。しかし他の多くの言語も無料であり、それだけが理由ではない。</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../_images/3_languages.png"><img alt="../_images/3_languages.png" src="../_images/3_languages.png" style="width: 538.4px; height: 351.20000000000005px;" /></a>
+</div>
+<p>図2では、経済学でよく使う言語４つを比較している。<code class="docutils literal notranslate"><span class="pre">Python</span></code>同様に、統計学や計量経済学で使われる<code class="docutils literal notranslate"><span class="pre">R</span></code>も無料であるが、持続的な伸びはある一方、劇的な増加はない。<code class="docutils literal notranslate"><span class="pre">Stata</span></code>は計量経済学で広く使われ、<code class="docutils literal notranslate"><span class="pre">Matlab</span></code>は数値計算に優れているが、両方とも使用するには高額な支出が伴う。この指標を見る限り相対的な人気は頭打ちであるが、有料ソフトであるため自前のヘルプ・フォーラムが充実している影響もあるだろう。第二の理由は、汎用性であろう。<code class="docutils literal notranslate"><span class="pre">Python</span></code>はデータ分析や科学的数値計算だけではなく、ゲーム（ゲーム理論ではない）、画像処理や顔認識にも使われている。またPCやスマートフォンの様々な作業の自動化に使うことも可能である。第３の理由は、学習コストが低いことであろう。<code class="docutils literal notranslate"><span class="pre">Python</span></code>のコードは英語を読む・書く感覚と近いため、他の言語と比較して可読性の高さが大きな特徴である。もちろん、<code class="docutils literal notranslate"><span class="pre">Python</span></code>の文法や基本的な関数を覚える必要があるが、相対的に初心者に優しい言語である。その結果、<code class="docutils literal notranslate"><span class="pre">Python</span></code>はIT産業だけではなく金融・コンサルティング・保険・医療などの幅広い分野で使われており、データ分析の重要性が増すごとにより多くの産業で使われると思われる。</p>
+<p>本書の目的は、基本的な<code class="docutils literal notranslate"><span class="pre">Python</span></code>の使い方を学び、入門レベルの計量経済学を<code class="docutils literal notranslate"><span class="pre">Python</span></code>を使って学ぶことである。換言すると、計量経済学を通して<code class="docutils literal notranslate"><span class="pre">Python</span></code>の使い方を学ぶことである。更には、<code class="docutils literal notranslate"><span class="pre">Python</span></code>の使い方を習得すれば、他分野への応用に大いに役立つと期待される。また<code class="docutils literal notranslate"><span class="pre">Python</span></code>を使い推定だけではなくシミュレーションもおこなうため、計量経済学の教科書で学ぶ推定値の性質などを直に感じ取り、計量経済学の復習にも役立つであろう。第１部では、<code class="docutils literal notranslate"><span class="pre">Python</span></code>の基礎を学び、第２部では計量経済分析に<code class="docutils literal notranslate"><span class="pre">Python</span></code>をどのように使うかを解説する。第３部では番外編として、関連するトピックを追加する予定である。</p>
+<div class="alert alert-info">
+<p class="admonition-title">Note</p>
+<p>本書の計量経済学の説明は、世界的に有名な学部レベルの教科書であるWooldridge (2019)を参考にしている。またこの本で扱われるデータを使い推定をおこなう。</p>
+<p>Introductory Econometrics: A Modern Approach, 7ed, by J.M. Wooldridge</p>
+<p>残念ながら邦訳はないが、読者には是非英語で読んで欲しい教科書である。</p>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='right-next' id="next-link" href="part_1.html" title="next page">１. <code class="docutils literal notranslate"><span class="pre">Python</span></code>の基礎</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.<br/>
+    </p>
+  </div>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>
