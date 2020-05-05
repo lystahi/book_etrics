@@ -386,7 +386,10 @@
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">wooldridge</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># wooldridgeのデータ・パッケージ</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
 <span class="kn">from</span> <span class="nn">see</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
@@ -688,7 +691,8 @@ memory usage: 8.3 KB
 <p><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>には多くのサブパッケージや関数があり，ここでは回帰式を文字列で書くことができる<code class="docutils literal notranslate"><span class="pre">ols</span></code>をつかう。（他のコードの書き方もあるが，他のトピックで扱う。）</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># この章の最初に読み込んでいるので再度読み込む必要はないが、、、</span>
+<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
 </pre></div>
 </div>
 </div>
@@ -775,7 +779,7 @@ memory usage: 8.3 KB
 </div>
 </div>
 </div>
-<p>例えば，以下のリストの中に<code class="docutils literal notranslate"><span class="pre">.params</span></code>とあるが，これを使い係数の推定値を取り出すことができる。</p>
+<p>例えば，上のリストの中に<code class="docutils literal notranslate"><span class="pre">.params</span></code>とあるが，このデータ属性を使い係数の推定値を取り出すことができる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span><span class="o">.</span><span class="n">params</span>
@@ -790,7 +794,8 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>また<code class="docutils literal notranslate"><span class="pre">wage</span></code>の予測値は<code class="docutils literal notranslate"><span class="pre">res.fittedvalues</span></code>もしくは<code class="docutils literal notranslate"><span class="pre">res.predict()</span></code>で得ることができる。上のリストが示すように<code class="docutils literal notranslate"><span class="pre">res</span></code>には多くの情報が詰まっており，これらを駆使し，図を描いたり推定値の検定をおこなうことになる。</p>
+<p>また<code class="docutils literal notranslate"><span class="pre">wage</span></code>の予測値は<code class="docutils literal notranslate"><span class="pre">res.fittedvalues</span></code>もしくは<code class="docutils literal notranslate"><span class="pre">res.predict()</span></code>で得ることができる。<code class="docutils literal notranslate"><span class="pre">res.fittedvalues</span></code>はデータ属性であり<code class="docutils literal notranslate"><span class="pre">res.predict()</span></code>はメソッドであるが、後者は引数がない場合は前者と同じ結果を示すことになる。</p>
+<p>上のリストが示すように<code class="docutils literal notranslate"><span class="pre">res</span></code>には多くの情報が詰まっており，これらを駆使し，図を描いたり推定値の検定をおこなうことになる。</p>
 <p>この中にある<code class="docutils literal notranslate"><span class="pre">summary()</span></code>を使い，結果がまとめられた表を出力することも可能である。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -805,7 +810,7 @@ Dep. Variable:                   wage   R-squared:                       0.165
 Model:                            OLS   Adj. R-squared:                  0.163
 Method:                 Least Squares   F-statistic:                     103.4
 Date:                Tue, 05 May 2020   Prob (F-statistic):           2.78e-22
-Time:                        17:03:20   Log-Likelihood:                -1385.7
+Time:                        17:29:17   Log-Likelihood:                -1385.7
 No. Observations:                 526   AIC:                             2775.
 Df Residuals:                     524   BIC:                             2784.
 Df Model:                           1                                         
@@ -852,17 +857,10 @@ educ           0.5414      0.053     10.167      0.000       0.437       0.646
 </div>
 </div>
 </div>
-<p>OLS推定の結果を「代入」した<code class="docutils literal notranslate"><span class="pre">res</span></code>には，ここで説明した以外に数多くのそのメソッドや属性が存在する。それらに関する説明は<a class="reference external" href="https://www.statsmodels.org/0.8.0/generated/statsmodels.regression.linear_model.RegressionResults.html">このサイト</a>を参照すること。</p>
+<p>OLS推定の結果を「代入」した<code class="docutils literal notranslate"><span class="pre">res</span></code>には，ここで説明した以外に数多くのそのメソッドや属性が存在する。それらに関する説明は<a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.RegressionResults.html">このサイト</a>を参照すること。</p>
 </div>
 <div class="section" id="id5">
 <h2>図<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-</pre></div>
-</div>
-</div>
-</div>
 <p>予測値の取得</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -884,7 +882,7 @@ educ           0.5414      0.053     10.167      0.000       0.437       0.646
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_55_0.png" src="../_images/8_Simple_Regression_55_0.png" />
+<img alt="../_images/8_Simple_Regression_54_0.png" src="../_images/8_Simple_Regression_54_0.png" />
 </div>
 </div>
 </div>
@@ -1069,7 +1067,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_74_0.png" src="../_images/8_Simple_Regression_74_0.png" />
+<img alt="../_images/8_Simple_Regression_73_0.png" src="../_images/8_Simple_Regression_73_0.png" />
 </div>
 </div>
 </div>
@@ -1125,7 +1123,7 @@ educ           0.0827      0.008     10.935      0.000       0.068       0.098
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_80_0.png" src="../_images/8_Simple_Regression_80_0.png" />
+<img alt="../_images/8_Simple_Regression_79_0.png" src="../_images/8_Simple_Regression_79_0.png" />
 </div>
 </div>
 </div>
@@ -1201,15 +1199,6 @@ educ           0.0827      0.008     10.935      0.000       0.068       0.098
 </div>
 <div class="section" id="id12">
 <h3>シミュレーション<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
-<p>必要なパッケージの読み込み</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
-<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
-</pre></div>
-</div>
-</div>
-</div>
 <p>母集団のパラメータの設定</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1263,8 +1252,8 @@ educ           0.0827      0.008     10.935      0.000       0.068       0.098
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    3.464275
-Y            0.060316
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    2.711731
+Y            0.381579
 dtype: float64
 </pre></div>
 </div>
@@ -1295,8 +1284,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    1.243654
-X            0.423955
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    1.387341
+X            0.427753
 dtype: float64
 </pre></div>
 </div>
@@ -1347,16 +1336,16 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([4.72533371, 3.44761407, 3.69186192, 3.94003985, 4.4834703 ,
-       4.4540082 , 5.55410573, 5.16523338, 3.65680861, 4.35255554,
-       3.95607477, 4.15725338, 3.5597168 , 4.47485086, 3.54771837,
-       3.55063661, 2.95676915, 4.72808296, 3.56026505, 4.39430447,
-       4.76315412, 2.74836675, 2.92471559, 4.25174084, 4.41952082,
-       4.01326637, 4.29883175, 2.48004661, 3.01316873, 4.187758  ,
-       3.70415165, 4.76307755, 5.75760961, 4.61610294, 3.08684955,
-       2.12136451, 1.81567512, 4.44442003, 4.995456  , 3.3481158 ,
-       3.64475015, 4.88285669, 4.49744356, 4.53739931, 4.71870751,
-       5.68132553, 5.22040206, 5.35970613, 4.20853657, 2.27984801])
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([3.81241067, 2.96424019, 2.74809114, 3.86948878, 4.877291  ,
+       5.72775776, 4.92045389, 4.56863261, 4.49458009, 2.75904271,
+       3.82672228, 5.12121487, 4.62378047, 4.24530905, 4.57782906,
+       4.20389478, 3.99714708, 4.66161567, 3.68498553, 3.63431105,
+       3.18667026, 3.57159376, 4.01267808, 4.59052868, 4.61555474,
+       4.19074511, 5.11565733, 2.96889857, 5.63749332, 4.23639684,
+       3.45594079, 1.99612964, 2.82227005, 4.58759367, 3.05003302,
+       4.92139169, 5.46975274, 3.09278905, 4.87874936, 4.24861874,
+       1.95429702, 3.97462871, 6.91362919, 3.04154223, 4.32656561,
+       2.57357964, 3.40883543, 5.06448037, 2.95377814, 3.80514667])
 </pre></div>
 </div>
 </div>
@@ -1370,7 +1359,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_113_0.png" src="../_images/8_Simple_Regression_113_0.png" />
+<img alt="../_images/8_Simple_Regression_110_0.png" src="../_images/8_Simple_Regression_110_0.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span>の分布</p>
@@ -1382,7 +1371,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_115_0.png" src="../_images/8_Simple_Regression_115_0.png" />
+<img alt="../_images/8_Simple_Regression_112_0.png" src="../_images/8_Simple_Regression_112_0.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">y</span></code>の理論値を図示</p>
@@ -1400,7 +1389,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_117_0.png" src="../_images/8_Simple_Regression_117_0.png" />
+<img alt="../_images/8_Simple_Regression_114_0.png" src="../_images/8_Simple_Regression_114_0.png" />
 </div>
 </div>
 <p>標本の大きさ<code class="docutils literal notranslate"><span class="pre">n</span></code>を変えて試してみよう。例えば，10, 30, 100, 500, 1000。</p>
