@@ -327,19 +327,19 @@
 <div class="math notranslate nohighlight">
 \[y_i=\beta_0+\beta_1 x_i + u_i\]</div>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(y_i=\)</span> 被説明変数（explained variable）</p>
+<li><p><span class="math notranslate nohighlight">\(y_i\)</span>： 被説明変数（explained variable）</p>
 <ul>
 <li><p>従属変数（dependent variable）</p></li>
 <li><p>regressand</p></li>
 </ul>
 </li>
-<li><p><span class="math notranslate nohighlight">\(x_i=\)</span> 説明変数（explanatory variable）</p>
+<li><p><span class="math notranslate nohighlight">\(x_i\)</span>： 説明変数（explanatory variable）</p>
 <ul>
 <li><p>独立変数（independent variable）</p></li>
 <li><p>regressor</p></li>
 </ul>
 </li>
-<li><p><span class="math notranslate nohighlight">\(u_i=\)</span> 誤差項（errors)</p>
+<li><p><span class="math notranslate nohighlight">\(u_i\)</span>： 誤差項（errors)</p>
 <ul>
 <li><p>観測不可能なランダムな要素</p></li>
 <li><p>平均はゼロと仮定する（重回帰分析の章でより詳しく説明する）</p></li>
@@ -389,13 +389,51 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">wooldridge</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># wooldridgeのデータ・パッケージ</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
-<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
+<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>  <span class="c1"># 回帰分析のパッケージ</span>
 <span class="kn">from</span> <span class="nn">see</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>データの読み込み。<code class="docutils literal notranslate"><span class="pre">wooldridge</span></code>パッケージのデータ読み込み関数は<code class="docutils literal notranslate"><span class="pre">dataWoo()</span></code>で，引数にはデータの名前を文字列として入力する。</p>
+<p>データの読み込みには<code class="docutils literal notranslate"><span class="pre">wooldridge</span></code>のパッケージを使う。使う関数は<code class="docutils literal notranslate"><span class="pre">dataWoo()</span></code>であり，引数なしで実行するとデータセットのリストが表示される。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dataWoo</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>  J.M. Wooldridge (2016) Introductory Econometrics: A Modern Approach,
+  Cengage Learning, 6th edition.
+
+  401k       401ksubs    admnrev       affairs     airfare
+  alcohol    apple       approval      athlet1     athlet2
+  attend     audit       barium        beauty      benefits
+  beveridge  big9salary  bwght         bwght2      campus
+  card       catholic    cement        census2000  ceosal1
+  ceosal2    charity     consump       corn        countymurders
+  cps78_85   cps91       crime1        crime2      crime3
+  crime4     discrim     driving       earns       econmath
+  elem94_95  engin       expendshares  ezanders    ezunem
+  fair       fertil1     fertil2       fertil3     fish
+  fringe     gpa1        gpa2          gpa3        happiness
+  hprice1    hprice2     hprice3       hseinv      htv
+  infmrt     injury      intdef        intqrt      inven
+  jtrain     jtrain2     jtrain3       kielmc      lawsch85
+  loanapp    lowbrth     mathpnl       meap00_01   meap01
+  meap93     meapsingle  minwage       mlb1        mroz
+  murder     nbasal      nyse          okun        openness
+  pension    phillips    pntsprd       prison      prminwge
+  rdchem     rdtelec     recid         rental      return
+  saving     sleep75     slp75_81      smoke       traffic1
+  traffic2   twoyear     volat         vote1       vote2
+  voucher    wage1       wage2         wagepan     wageprc
+  wine
+</pre></div>
+</div>
+</div>
+</div>
+<p>以下では<code class="docutils literal notranslate"><span class="pre">wage1</span></code>を使う。データ・セットを読み込むには引数にはデータ・セット名を文字列として入力する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">dataWoo</span><span class="p">(</span><span class="s1">&#39;wage1&#39;</span><span class="p">)</span>
@@ -610,6 +648,7 @@ memory usage: 8.3 KB
 </div>
 <div class="section" id="id4">
 <h2>「手計算」<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>まず上で示した<span class="math notranslate nohighlight">\(\hat{\beta}_0\)</span>と<span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span>の式を使い計算する。</p>
 <p>共分散</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -681,14 +720,14 @@ memory usage: 8.3 KB
 </div>
 <div class="section" id="statsmodels">
 <h2><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>を使う<a class="headerlink" href="#statsmodels" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>のパッケージを使うことにより，多くの計算を自動化できる。以下の順番でおこなる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>のパッケージを使うことにより，多くの計算を自動化できる。以下の順番でおこなう。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">old</span></code>サブパッケージを読み込む</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ols</span></code>サブパッケージを読み込む</p></li>
 <li><p>回帰式を定義する</p></li>
 <li><p>推定値の自動計算</p></li>
 </ul>
-<p><strong>サブパッケージを読み込み</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>には多くのサブパッケージや関数があり，ここでは回帰式を文字列で書くことができる<code class="docutils literal notranslate"><span class="pre">ols</span></code>をつかう。（他のコードの書き方もあるが，他のトピックで扱う。）</p>
+<p><strong>サブパッケージの読み込み</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>には多くのサブパッケージや関数があるが，ここでは回帰式を文字列で書くことができる<code class="docutils literal notranslate"><span class="pre">ols</span></code>をつかう。（他のコードの書き方もあるが，他のトピックで扱う。）</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># この章の最初に読み込んでいるので再度読み込む必要はないが、、、</span>
@@ -724,7 +763,7 @@ memory usage: 8.3 KB
 </div>
 </div>
 <p><strong>自動計算</strong></p>
-<p>まず自動計算の準備として計算の対象となるもの（オブジェクト）を生成し、”model”の省略形の<code class="docutils literal notranslate"><span class="pre">mod</span></code>に格納する。ここで第１引数は上で定義した回帰式，第２引数<code class="docutils literal notranslate"><span class="pre">data</span></code>は使用するデータをの指定。</p>
+<p>まず自動計算の準備として計算の対象となるもの（インスタンスと呼ばれるオブジェクト）を生成し、”model”の省略形の<code class="docutils literal notranslate"><span class="pre">mod</span></code>に割り当てる。ここで第１引数は上で定義した回帰式，第２引数<code class="docutils literal notranslate"><span class="pre">data</span></code>は使用するデータをの指定。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
@@ -732,7 +771,29 @@ memory usage: 8.3 KB
 </div>
 </div>
 </div>
-<p>実際に計算するためにメソッド<code class="docutils literal notranslate"><span class="pre">fit()</span></code>を使い，それを変数<code class="docutils literal notranslate"><span class="pre">res</span></code>に格納する。（<code class="docutils literal notranslate"><span class="pre">res</span></code>はresultの略）</p>
+<p><code class="docutils literal notranslate"><span class="pre">mod</span></code>の属性を調べてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">see</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>    &lt;                  &lt;=                 ==                 !=
+    &gt;                  &gt;=                 dir()              hash()
+    help()             repr()             str()              .data
+    .df_model          .df_resid          .endog             .endog_names
+    .exog              .exog_names        .fit()
+    .fit_regularized()                    .formula           .from_formula()
+    .get_distribution()                   .hessian()         .hessian_factor()
+    .information()     .initialize()      .k_constant        .loglike()
+    .nobs              .predict()         .rank              .score()
+    .weights           .wendog            .wexog             .whiten()
+</pre></div>
+</div>
+</div>
+</div>
+<p>この中に実際に計算するためにメソッド<code class="docutils literal notranslate"><span class="pre">fit()</span></code>が準備されており、それを使い結果を<code class="docutils literal notranslate"><span class="pre">res</span></code>に割り当てる（<code class="docutils literal notranslate"><span class="pre">res</span></code>はresultの略）。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
@@ -744,7 +805,7 @@ memory usage: 8.3 KB
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">old</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">res</span></code>のメソッドや属性をチェックしてみる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">res</span></code>の属性をチェックしてみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">see</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
@@ -794,7 +855,7 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>また<code class="docutils literal notranslate"><span class="pre">wage</span></code>の予測値は<code class="docutils literal notranslate"><span class="pre">res.fittedvalues</span></code>もしくは<code class="docutils literal notranslate"><span class="pre">res.predict()</span></code>で得ることができる。<code class="docutils literal notranslate"><span class="pre">res.fittedvalues</span></code>はデータ属性であり<code class="docutils literal notranslate"><span class="pre">res.predict()</span></code>はメソッドであるが、後者は引数がない場合は前者と同じ結果を示すことになる。</p>
+<p>また<code class="docutils literal notranslate"><span class="pre">wage</span></code>の予測値は<code class="docutils literal notranslate"><span class="pre">res.fittedvalues</span></code>もしくは<code class="docutils literal notranslate"><span class="pre">res.predict()</span></code>で得ることができる。<code class="docutils literal notranslate"><span class="pre">res.fittedvalues</span></code>はデータ属性であり<code class="docutils literal notranslate"><span class="pre">res.predict()</span></code>はメソッドであるが、後者は引数がない場合は前者と同じ結果を返す。</p>
 <p>上のリストが示すように<code class="docutils literal notranslate"><span class="pre">res</span></code>には多くの情報が詰まっており，これらを駆使し，図を描いたり推定値の検定をおこなうことになる。</p>
 <p>この中にある<code class="docutils literal notranslate"><span class="pre">summary()</span></code>を使い，結果がまとめられた表を出力することも可能である。</p>
 <div class="cell docutils container">
@@ -810,7 +871,7 @@ Dep. Variable:                   wage   R-squared:                       0.165
 Model:                            OLS   Adj. R-squared:                  0.163
 Method:                 Least Squares   F-statistic:                     103.4
 Date:                Tue, 05 May 2020   Prob (F-statistic):           2.78e-22
-Time:                        17:29:17   Log-Likelihood:                -1385.7
+Time:                        22:03:10   Log-Likelihood:                -1385.7
 No. Observations:                 526   AIC:                             2775.
 Df Residuals:                     524   BIC:                             2784.
 Df Model:                           1                                         
@@ -833,7 +894,8 @@ Warnings:
 </div>
 </div>
 </div>
-<p>また，この表は３つの表から構成されているため，必要な部分だけを表示することも可能である。</p>
+<p>ここで<code class="docutils literal notranslate"><span class="pre">print()</span></code>関数を使ったが、使わなくとも同じ内容を表示できるので試してみよう。</p>
+<p>また，この表は３つの表から構成されており，必要な部分だけを表示することも可能である。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -857,7 +919,7 @@ educ           0.5414      0.053     10.167      0.000       0.437       0.646
 </div>
 </div>
 </div>
-<p>OLS推定の結果を「代入」した<code class="docutils literal notranslate"><span class="pre">res</span></code>には，ここで説明した以外に数多くのそのメソッドや属性が存在する。それらに関する説明は<a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.RegressionResults.html">このサイト</a>を参照すること。</p>
+<p>OLS推定の結果を割り当てた<code class="docutils literal notranslate"><span class="pre">res</span></code>には，ここで説明した以外に数多くの属性が存在する。それらに関する説明は<a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.RegressionResults.html">このサイト</a>を参照すること。</p>
 </div>
 <div class="section" id="id5">
 <h2>図<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
@@ -882,7 +944,7 @@ educ           0.5414      0.053     10.167      0.000       0.437       0.646
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_54_0.png" src="../_images/8_Simple_Regression_54_0.png" />
+<img alt="../_images/8_Simple_Regression_59_0.png" src="../_images/8_Simple_Regression_59_0.png" />
 </div>
 </div>
 </div>
@@ -1054,7 +1116,7 @@ dtype: float64
 <p><span class="math notranslate nohighlight">\(\ln y = \beta_0+\beta_1x+u\)</span></p>
 <p>この式を<span class="math notranslate nohighlight">\(x\)</span>について微分すると以下を得る。</p>
 <p><span class="math notranslate nohighlight">\(\dfrac{d\ln y}{dx}=\dfrac{dy/y}{dx}=\dfrac{y\text{の%変化}}{dx}=\beta_1\)</span></p>
-<p>即ち，<span class="math notranslate nohighlight">\(\beta_1\)</span>は<span class="math notranslate nohighlight">\(x\)</span>（教育年数）が一単位増加した場合，<span class="math notranslate nohighlight">\(y\)</span>（賃金）が何％変化するかを示している（教育の収益率）。上のOLS推定では教育年数が１年増えると賃金は8.2%増加する。</p>
+<p>即ち，<span class="math notranslate nohighlight">\(\beta_1\)</span>は<span class="math notranslate nohighlight">\(x\)</span>（教育年数）が一単位増加した場合，<span class="math notranslate nohighlight">\(y\)</span>（賃金）が何％変化するかを示している（教育の収益率）。このOLS推定結果によると、教育年数が１年増えると賃金は8.2%増加する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wage_log_hat_1</span> <span class="o">=</span> <span class="n">res_1</span><span class="o">.</span><span class="n">fittedvalues</span>
@@ -1067,12 +1129,13 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_73_0.png" src="../_images/8_Simple_Regression_73_0.png" />
+<img alt="../_images/8_Simple_Regression_78_0.png" src="../_images/8_Simple_Regression_78_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="id9">
 <h3>方法２：事前に変数を作成<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>方法１では回帰式を直接書き換えたが、ここでは事前に変数を新しく生成し推定する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;wage_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;wage&#39;</span><span class="p">])</span>
@@ -1123,7 +1186,7 @@ educ           0.0827      0.008     10.935      0.000       0.068       0.098
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_79_0.png" src="../_images/8_Simple_Regression_79_0.png" />
+<img alt="../_images/8_Simple_Regression_85_0.png" src="../_images/8_Simple_Regression_85_0.png" />
 </div>
 </div>
 </div>
@@ -1146,7 +1209,7 @@ educ           0.0827      0.008     10.935      0.000       0.068       0.098
 <li><p>２つの考え方：標本の大きさ<span class="math notranslate nohighlight">\(&lt;\)</span>母集団の大きさ</p>
 <ol class="simple">
 <li><p>国と時間の概念で考えると母集団の大きさは<span class="math notranslate nohighlight">\(\infty\)</span></p></li>
-<li><p>確率変数とは実現可能な数値から１つを実現させる関数である。またGDP自体は確率変数として解釈する方が自然である（「重回帰分析」で説明する仮定２を参照）。従って，34カ国の実現可能なGDPの値が母集団である。この解釈によると，標本の大きさ<span class="math notranslate nohighlight">\(&lt;\)</span>母集団の大きさ。</p></li>
+<li><p>確率変数とは実現可能な数値から１つを実現させる関数である。またGDP自体は確率変数として解釈する方が自然である（「重回帰分析」で説明する仮定２を参照）。従って，34カ国の実現可能なGDPの値が母集団となる。この解釈によると，標本の大きさ<span class="math notranslate nohighlight">\(&lt;\)</span>母集団の大きさ。</p></li>
 </ol>
 </li>
 </ul>
@@ -1157,21 +1220,20 @@ educ           0.0827      0.008     10.935      0.000       0.068       0.098
 <h3>プラン<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>回帰分析の理解を深めるするためにシミュレーションを以下の手順でおこなう。</p>
 <p><strong>＜Step 1＞</strong></p>
-<ul class="simple">
+<ul>
 <li><p>母集団の大きさは指定しない。</p></li>
-<li><p>母集団のデータを生成する回帰式（母集団回帰式）を定義する。</p></li>
-</ul>
+<li><p>母集団のデータを生成する回帰式（母集団回帰式）を定義する。</p>
 <div class="math notranslate nohighlight">
 \[Y = \beta_0 + \beta_1 X + U\]</div>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>* 説明変数$X$と誤差項$U$はランダム変数であり，従って$Y$もランダム変数である。
-</pre></div>
-</div>
-<ul>
+<ul class="simple">
+<li><p>説明変数<span class="math notranslate nohighlight">\(X\)</span>と誤差項<span class="math notranslate nohighlight">\(U\)</span>はランダム変数であり，従って<span class="math notranslate nohighlight">\(Y\)</span>もランダム変数である。</p></li>
+</ul>
+</li>
 <li><p>母集団から標本を<span class="math notranslate nohighlight">\(n\)</span>個抽出する。</p>
 <ul>
 <li><p>抽出された値はランダム変数の実現値</p>
 <div class="math notranslate nohighlight">
-\[(y_1,x_1),\;(y_2,x_2),\;(y_3,x_3),.....(y_n,x_n)\]</div>
+\[(y_1,x_1),\;(y_2,x_2),.....(y_n,x_n)\]</div>
 </li>
 <li><p>仮定</p>
 <ul>
@@ -1252,13 +1314,14 @@ educ           0.0827      0.008     10.935      0.000       0.068       0.098
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    2.711731
-Y            0.381579
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    2.798516
+Y            0.416571
 dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
+<p>母集団パラメータと比べると、推定誤差が発生していることがわかる。</p>
 </div>
 <div class="section" id="id13">
 <h3>関数化<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
@@ -1284,8 +1347,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    1.387341
-X            0.427753
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    0.954213
+X            0.534454
 dtype: float64
 </pre></div>
 </div>
@@ -1295,7 +1358,14 @@ dtype: float64
 </div>
 <div class="section" id="id14">
 <h3>ループを使ってシミュレーション<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
-<p>標本の大きさ<code class="docutils literal notranslate"><span class="pre">n</span></code>のデータを<code class="docutils literal notranslate"><span class="pre">N</span></code>組用意し（<code class="docutils literal notranslate"><span class="pre">N</span></code>は標本数），<code class="docutils literal notranslate"><span class="pre">OLS</span></code>推定を<code class="docutils literal notranslate"><span class="pre">N</span></code>回おこなう。シミュレーション毎に計算した回帰係数の推定値の分布を図示する。</p>
+<ul class="simple">
+<li><p>標本の大きさ<code class="docutils literal notranslate"><span class="pre">n</span></code>のデータを<code class="docutils literal notranslate"><span class="pre">N</span></code>組用意し（<code class="docutils literal notranslate"><span class="pre">N</span></code>は標本数），<code class="docutils literal notranslate"><span class="pre">OLS</span></code>推定を<code class="docutils literal notranslate"><span class="pre">N</span></code>回おこなう。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">N</span></code>回のシミュレーションで同じ<code class="docutils literal notranslate"><span class="pre">x</span></code>を使い，<code class="docutils literal notranslate"><span class="pre">y</span></code>は誤差項の影響だけを受ける。</p></li>
+</ul>
+</li>
+<li><p>シミュレーション毎に計算した回帰係数の推定値の分布を図示する。</p></li>
+</ul>
 <p>まず，<code class="docutils literal notranslate"><span class="pre">def</span></code>を使いシミュレーションの関数を作成する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1321,14 +1391,23 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>シミュレーションの開始</p>
+<p>シミュレーションの回数</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_val</span><span class="p">,</span> <span class="n">b0hat</span><span class="p">,</span> <span class="n">b1hat</span> <span class="o">=</span> <span class="n">my_sim_loop</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="o">=</span><span class="mi">500</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>シミュレーションの開始</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_val</span><span class="p">,</span> <span class="n">b0hat</span><span class="p">,</span> <span class="n">b1hat</span> <span class="o">=</span> <span class="n">my_sim_loop</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">x_val</span></code>は<code class="docutils literal notranslate"><span class="pre">N</span></code>回のシミュレーションで使った<code class="docutils literal notranslate"><span class="pre">x</span></code>の値である。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_val</span>
@@ -1336,16 +1415,16 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([3.81241067, 2.96424019, 2.74809114, 3.86948878, 4.877291  ,
-       5.72775776, 4.92045389, 4.56863261, 4.49458009, 2.75904271,
-       3.82672228, 5.12121487, 4.62378047, 4.24530905, 4.57782906,
-       4.20389478, 3.99714708, 4.66161567, 3.68498553, 3.63431105,
-       3.18667026, 3.57159376, 4.01267808, 4.59052868, 4.61555474,
-       4.19074511, 5.11565733, 2.96889857, 5.63749332, 4.23639684,
-       3.45594079, 1.99612964, 2.82227005, 4.58759367, 3.05003302,
-       4.92139169, 5.46975274, 3.09278905, 4.87874936, 4.24861874,
-       1.95429702, 3.97462871, 6.91362919, 3.04154223, 4.32656561,
-       2.57357964, 3.40883543, 5.06448037, 2.95377814, 3.80514667])
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([3.48822292, 4.8124694 , 4.65707971, 4.78288932, 4.50196665,
+       4.00194122, 2.56742855, 4.09770001, 4.43685377, 3.89580753,
+       2.97583852, 4.71722151, 4.39399059, 5.40525397, 4.99397736,
+       4.36696839, 4.70652255, 4.37758009, 3.40960048, 4.69310476,
+       1.89140309, 3.61570556, 4.44492803, 4.30342048, 4.89471169,
+       4.03357208, 2.724475  , 4.00427008, 2.87272464, 3.91168615,
+       4.13810866, 3.289456  , 4.15438597, 4.18217101, 4.26923615,
+       3.28017151, 2.28918383, 4.58422586, 6.17570491, 3.56244324,
+       3.71516459, 3.82624016, 3.66914227, 4.44128819, 4.69942484,
+       5.40137175, 4.09756078, 3.78262765, 5.2617556 , 2.84644696])
 </pre></div>
 </div>
 </div>
@@ -1359,7 +1438,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_110_0.png" src="../_images/8_Simple_Regression_110_0.png" />
+<img alt="../_images/8_Simple_Regression_120_0.png" src="../_images/8_Simple_Regression_120_0.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span>の分布</p>
@@ -1371,27 +1450,28 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_112_0.png" src="../_images/8_Simple_Regression_112_0.png" />
+<img alt="../_images/8_Simple_Regression_122_0.png" src="../_images/8_Simple_Regression_122_0.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">y</span></code>の理論値を図示</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>  <span class="c1"># 1000回のループで図示</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>  <span class="c1"># 1000回のループで図示</span>
     <span class="n">y_val</span> <span class="o">=</span> <span class="n">b0hat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">b1hat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x_val</span>  <span class="c1"># yの予測値</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span><span class="n">y_val</span><span class="p">,</span> <span class="s1">&#39;grey&#39;</span><span class="p">)</span>  <span class="c1"># yの予測値を図示</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># 縦軸の表示範囲を設定</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;1000 rounds of OLS simulation&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1"> rounds of OLS simulation&#39;</span><span class="p">)</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_114_0.png" src="../_images/8_Simple_Regression_114_0.png" />
+<img alt="../_images/8_Simple_Regression_124_0.png" src="../_images/8_Simple_Regression_124_0.png" />
 </div>
 </div>
+<p>上のコードの最後から２行目に<code class="docutils literal notranslate"><span class="pre">f'{N}</span> <span class="pre">rounds</span> <span class="pre">of</span> <span class="pre">OLS</span> <span class="pre">simulation'</span></code>とある。文字列の前に<code class="docutils literal notranslate"><span class="pre">f</span></code>を置き、文字列の中で変数を<code class="docutils literal notranslate"><span class="pre">{}</span></code>で囲むと変数の値を代入してくれるのである。これを<code class="docutils literal notranslate"><span class="pre">f-string</span></code>と呼ぶ。</p>
 <p>標本の大きさ<code class="docutils literal notranslate"><span class="pre">n</span></code>を変えて試してみよう。例えば，10, 30, 100, 500, 1000。</p>
 </div>
 </div>
