@@ -30,6 +30,8 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="３. 番外編" href="part_3.html" />
+    <link rel="prev" title="統計学の簡単な復習" href="7_Review_of_Statistics.html" />
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -75,8 +77,16 @@
   <li class="">
     <a href="part_1.html">１. Pythonの基礎</a>
   </li>
-  <li class="">
+  <li class="active">
     <a href="part_2.html">２. Pythonを使った計量経済分析</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="7_Review_of_Statistics.html">統計学の簡単な復習</a>
+    </li>
+    <li class="active">
+      <a href="">単回帰分析（Simple Regression）</a>
+    </li>
+  </ul>
   </li>
   <li class="">
     <a href="part_3.html">３. 番外編</a>
@@ -244,7 +254,7 @@
 </li>
 </ul>
 <ul class="simple">
-<li><p>標本 ＝ sample ＝ サンプル</p>
+<li><p>標本（サンプル）＝ sample</p>
 <ul>
 <li><p>観測値で構成されるデータまたはデータ・セット</p></li>
 <li><p>a set of data</p></li>
@@ -263,50 +273,64 @@
 </li>
 <li><p>統計量 ＝ statistics</p>
 <ul>
-<li><p>標本データの特徴を要約するために使われる<strong>関数</strong>（例えば，平均の式）。</p></li>
-<li><p>実際にデータを代入し統計量を計算して得る数値（例えば，経済学部生の身長の平均）は確率変数（random variables）。</p></li>
+<li><p>２つの意味で使われる</p>
+<ol class="simple">
+<li><p>単純に標本データの特徴を要約するために使われる<strong>関数</strong>。平均の式が一例であり、データが「入力」であり、その平均が「出力」。標本によって異なるため確率変数（random variables）</p></li>
+<li><p>上の関数を使い計算した数値</p></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>推定 ＝ estimation</p>
+<ul>
+<li><p>母集団の未知のパラメータを計算し推知すること</p></li>
 </ul>
 </li>
 <li><p>推定量 ＝ estimators</p>
 <ul>
-<li><p>母集団のパラメータを推定するための<strong>関数</strong>（例えば，回帰直線の係数）</p></li>
-<li><p>確率変数</p></li>
+<li><p><strong>母集団のパラメータ</strong>（母数）を推定するために用いる関数としての統計量（例えば，回帰直線の係数の式）</p>
+<ul>
+<li><p>母集団のパラメータという真の値と比較してバイアスを考えることができるのが推定量であるが、統計量はそうではない</p></li>
+</ul>
+</li>
+<li><p>標本によって異なるため確率変数（random variables）</p></li>
 </ul>
 </li>
 <li><p>推定値 ＝ estimates</p>
 <ul>
-<li><p>母集団のパラメータを推知するために推定量を使い実際に計算して得た数値（例えば，平均値）</p></li>
+<li><p>母集団のパラメータを推知するために推定量を使い実際に計算して得た数値（例えば，回帰の定数項）</p></li>
 <li><p>確率変数の実現値</p></li>
 </ul>
 </li>
 </ul>
-<ul class="simple">
+<ul>
 <li><p>母集団回帰式 ＝ Population Regression Equation (PRE)</p>
 <ul>
 <li><p>母集団の値を生成する回帰式（観測不可能）</p></li>
-<li><p>データ発生プロセス（Data Generating Process; DGP）
-<span class="math notranslate nohighlight">\($ y = \beta_0 + \beta_1 x + u\)</span>$</p></li>
+<li><p>データ発生プロセス（Data Generating Process; DGP）</p>
+<div class="math notranslate nohighlight">
+\[y = \beta_0 + \beta_1 x + u\]</div>
+</li>
 </ul>
 </li>
 <li><p>誤差項（攪乱項）＝ (random) errors</p>
-<ul>
+<ul class="simple">
 <li><p>母集団回帰式にある観測できないランダム変数（PREの<span class="math notranslate nohighlight">\(u\)</span>）</p></li>
 </ul>
 </li>
 <li><p>モデル = models</p>
-<ul>
+<ul class="simple">
 <li><p>母集団のパラメータを推定するために使う回帰式</p></li>
 </ul>
 </li>
 <li><p>残差 ＝ residuals</p>
 <ul>
-<li><p>回帰式の被説明変数の観測値と予測値の差（次式の<span class="math notranslate nohighlight">\(\hat{u}\)</span>）
-<span class="math notranslate nohighlight">\($ \hat{u}_i=y_i-\hat{\beta}_0-\hat{\beta}_1x_i\)</span>$</p>
-<ul>
+<li><p>回帰式の被説明変数の観測値と予測値の差（次式の<span class="math notranslate nohighlight">\(\hat{u}\)</span>）</p>
+<div class="math notranslate nohighlight">
+\[ \hat{u}_i=y_i-\hat{\beta}_0-\hat{\beta}_1x_i\]</div>
+</li>
 <li><p><span class="math notranslate nohighlight">\(\hat{\beta}_0\)</span>, <span class="math notranslate nohighlight">\(\hat{\beta}_0\)</span>はデータを使って計算した推定量</p></li>
 <li><p><span class="math notranslate nohighlight">\(i=1,2,...n\)</span>（<span class="math notranslate nohighlight">\(n\)</span>は標本の大きさ）</p></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -376,9 +400,9 @@
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">wooldridge</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># wooldridgeのデータ・パッケージ</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
 <span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>  <span class="c1"># 回帰分析のパッケージ</span>
 <span class="kn">from</span> <span class="nn">see</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
@@ -860,8 +884,8 @@ dtype: float64
 Dep. Variable:                   wage   R-squared:                       0.165
 Model:                            OLS   Adj. R-squared:                  0.163
 Method:                 Least Squares   F-statistic:                     103.4
-Date:                Tue, 05 May 2020   Prob (F-statistic):           2.78e-22
-Time:                        22:03:10   Log-Likelihood:                -1385.7
+Date:                Wed, 06 May 2020   Prob (F-statistic):           2.78e-22
+Time:                        11:17:08   Log-Likelihood:                -1385.7
 No. Observations:                 526   AIC:                             2775.
 Df Residuals:                     524   BIC:                             2784.
 Df Model:                           1                                         
@@ -1304,8 +1328,8 @@ educ           0.0827      0.008     10.935      0.000       0.068       0.098
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    2.798516
-Y            0.416571
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    2.843491
+Y            0.311583
 dtype: float64
 </pre></div>
 </div>
@@ -1337,8 +1361,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    0.954213
-X            0.534454
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    1.158763
+X            0.423129
 dtype: float64
 </pre></div>
 </div>
@@ -1349,11 +1373,7 @@ dtype: float64
 <div class="section" id="id14">
 <h3>ループを使ってシミュレーション<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>標本の大きさ<code class="docutils literal notranslate"><span class="pre">n</span></code>のデータを<code class="docutils literal notranslate"><span class="pre">N</span></code>組用意し（<code class="docutils literal notranslate"><span class="pre">N</span></code>は標本数），<code class="docutils literal notranslate"><span class="pre">OLS</span></code>推定を<code class="docutils literal notranslate"><span class="pre">N</span></code>回おこなう。</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">N</span></code>回のシミュレーションで同じ<code class="docutils literal notranslate"><span class="pre">x</span></code>を使い，<code class="docutils literal notranslate"><span class="pre">y</span></code>は誤差項の影響だけを受ける。</p></li>
-</ul>
-</li>
+<li><p>標本の大きさ<code class="docutils literal notranslate"><span class="pre">n</span></code>のデータを<code class="docutils literal notranslate"><span class="pre">N</span></code>組用意し（<code class="docutils literal notranslate"><span class="pre">N</span></code>は標本数），<code class="docutils literal notranslate"><span class="pre">OLS</span></code>推定を<code class="docutils literal notranslate"><span class="pre">N</span></code>回おこなう。</p></li>
 <li><p>シミュレーション毎に計算した回帰係数の推定値の分布を図示する。</p></li>
 </ul>
 <p>まず，<code class="docutils literal notranslate"><span class="pre">def</span></code>を使いシミュレーションの関数を作成する。</p>
@@ -1364,10 +1384,9 @@ dtype: float64
     <span class="n">b0hat_list</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># OLS推定量を入れる空リスト    </span>
     <span class="n">b1hat_list</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># OLS推定量を入れる空リスト    </span>
     
-    <span class="n">x</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># for loopの外に置くことにより，N回の回帰分析で同じxを使う</span>
-    
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>  <span class="c1"># N 回のループ</span>
         <span class="n">u</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">su</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># for loopの外に置くことにより，N回の回帰分析で同じxを使う</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">b0</span> <span class="o">+</span> <span class="n">b1</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">u</span>
         <span class="n">df_sim</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
         <span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;Y ~ X&#39;</span>
@@ -1397,28 +1416,6 @@ dtype: float64
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">x_val</span></code>は<code class="docutils literal notranslate"><span class="pre">N</span></code>回のシミュレーションで使った<code class="docutils literal notranslate"><span class="pre">x</span></code>の値である。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_val</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([3.48822292, 4.8124694 , 4.65707971, 4.78288932, 4.50196665,
-       4.00194122, 2.56742855, 4.09770001, 4.43685377, 3.89580753,
-       2.97583852, 4.71722151, 4.39399059, 5.40525397, 4.99397736,
-       4.36696839, 4.70652255, 4.37758009, 3.40960048, 4.69310476,
-       1.89140309, 3.61570556, 4.44492803, 4.30342048, 4.89471169,
-       4.03357208, 2.724475  , 4.00427008, 2.87272464, 3.91168615,
-       4.13810866, 3.289456  , 4.15438597, 4.18217101, 4.26923615,
-       3.28017151, 2.28918383, 4.58422586, 6.17570491, 3.56244324,
-       3.71516459, 3.82624016, 3.66914227, 4.44128819, 4.69942484,
-       5.40137175, 4.09756078, 3.78262765, 5.2617556 , 2.84644696])
-</pre></div>
-</div>
-</div>
-</div>
 <p><span class="math notranslate nohighlight">\(\hat{\beta}_0\)</span>の分布</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1428,7 +1425,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_120_0.png" src="../_images/8_Simple_Regression_120_0.png" />
+<img alt="../_images/8_Simple_Regression_121_0.png" src="../_images/8_Simple_Regression_121_0.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span>の分布</p>
@@ -1440,7 +1437,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_122_0.png" src="../_images/8_Simple_Regression_122_0.png" />
+<img alt="../_images/8_Simple_Regression_123_0.png" src="../_images/8_Simple_Regression_123_0.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">y</span></code>の理論値を図示</p>
@@ -1458,7 +1455,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_Simple_Regression_124_0.png" src="../_images/8_Simple_Regression_124_0.png" />
+<img alt="../_images/8_Simple_Regression_125_0.png" src="../_images/8_Simple_Regression_125_0.png" />
 </div>
 </div>
 <p>上のコードの最後から２行目に<code class="docutils literal notranslate"><span class="pre">f'{N}</span> <span class="pre">rounds</span> <span class="pre">of</span> <span class="pre">OLS</span> <span class="pre">simulation'</span></code>とある。文字列の前に<code class="docutils literal notranslate"><span class="pre">f</span></code>を置き、文字列の中で変数を<code class="docutils literal notranslate"><span class="pre">{}</span></code>で囲むと変数の値を代入してくれるのである。これを<code class="docutils literal notranslate"><span class="pre">f-string</span></code>と呼ぶ。</p>
@@ -1476,6 +1473,8 @@ dtype: float64
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="7_Review_of_Statistics.html" title="previous page">統計学の簡単な復習</a>
+    <a class='right-next' id="next-link" href="part_3.html" title="next page">３. 番外編</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
