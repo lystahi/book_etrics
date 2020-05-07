@@ -955,7 +955,7 @@ Dep. Variable:                   wage   R-squared:                       0.165
 Model:                            OLS   Adj. R-squared:                  0.163
 Method:                 Least Squares   F-statistic:                     103.4
 Date:                Thu, 07 May 2020   Prob (F-statistic):           2.78e-22
-Time:                        10:11:25   Log-Likelihood:                -1385.7
+Time:                        21:59:28   Log-Likelihood:                -1385.7
 No. Observations:                 526   AIC:                             2775.
 Df Residuals:                     524   BIC:                             2784.
 Df Model:                           1                                         
@@ -1398,8 +1398,8 @@ educ           0.0827      0.008     10.935      0.000       0.068       0.098
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    2.544407
-Y            0.371471
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    1.510553
+Y            0.780676
 dtype: float64
 </pre></div>
 </div>
@@ -1431,8 +1431,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    0.686758
-X            0.551488
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    0.861679
+X            0.515694
 dtype: float64
 </pre></div>
 </div>
@@ -1530,8 +1530,17 @@ dtype: float64
 </div>
 </div>
 <p>上のコード・ブロックの最後から２行目に<code class="docutils literal notranslate"><span class="pre">f'{N}</span> <span class="pre">rounds</span> <span class="pre">of</span> <span class="pre">OLS</span> <span class="pre">simulation'</span></code>とある。文字列の前に<code class="docutils literal notranslate"><span class="pre">f</span></code>を置き、文字列の中で変数を<code class="docutils literal notranslate"><span class="pre">{}</span></code>で囲むと変数の値を代入してくれるのである。これを<code class="docutils literal notranslate"><span class="pre">f-string</span></code>と呼ぶ。</p>
-<p><strong>＜上の図の含意＞</strong></p>
-<p>同じ回帰式で<code class="docutils literal notranslate"><span class="pre">N</span></code>回のシミュレーションを行い，<code class="docutils literal notranslate"><span class="pre">N</span></code>個の回帰曲線を重ねて描いているためパイプのような形になっている。実際の実証分析ではこのような繰り返しの試行は不可能であり一度だけである。即ち，<code class="docutils literal notranslate"><span class="pre">N</span></code>個の回帰曲線の内の１つだけを結果として表示することになる。これは推定量（<span class="math notranslate nohighlight">\(\hat{\beta}_0\)</span>と<span class="math notranslate nohighlight">\(\hat{\beta}_0\)</span>）が確率変数であるためである。図のパイプの幅が大きければ，データを再度取得し推定する度に回帰曲線の位置が大きく変わってしまう。それを最小限に抑えるために，即ち，パイプの幅を可能な限り細くするために工夫が必要となる。直感的にわかると思うが，標本の大きさ<code class="docutils literal notranslate"><span class="pre">n</span></code>が増えるとパイプの幅は細くなり，より正確な推計結果を得ることが可能となる。例えば，標本の大きさが母集団に近づけばパイプの形が線（母集団回帰式）に近づいて行くことは容易に想像できる。従って，実証分析において標本の大きさは正に死活問題なのである。</p>
+<hr class="docutils" />
+<p><strong>＜シミュレーションの含意＞</strong></p>
+<p>まず２つのヒストグラムをみると，値にばらつきがある。これは推定量（<span class="math notranslate nohighlight">\(\hat{\beta}_0\)</span>と<span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span>）が確率変数であるためである。その実現値は，概ね真の値（<span class="math notranslate nohighlight">\(\beta_0=1\)</span>と<span class="math notranslate nohighlight">\(\beta_1=0.5\)</span>）を中心に左右対象に分布している。即ち，推定量は不偏性を満たしている。次の章で簡単に説明するが，上で行ったシミュレーションは不偏推定量に必要な仮定を満たしているのである。</p>
+<p>これを踏まえて，回帰直線の図を考えよう。同じ回帰式を使い<code class="docutils literal notranslate"><span class="pre">N</span></code>回のシミュレーションを行い，<code class="docutils literal notranslate"><span class="pre">N</span></code>個の回帰直線を重ねて描いているためパイプのような形になっている。一方で，実際の実証分析ではこのような繰り返しの試行は不可能であり多くの場合は一度だけである。言い換えると，実証研究では<code class="docutils literal notranslate"><span class="pre">N</span></code>個の回帰直線の中から１つだけを結果として「選んでいる」のと等しい。この意味を更に考えるために，（標本の大きさは所与として）たまたま２組みのデータセットが手に入り，別々の回帰分析を行ったとしよう。その場合，パイプの幅が大きければ大きいほど，２つの回帰直線の位置は大きく異なる可能性が高くなり，正確性が低い結果になる。逆に，パイプの幅が小さければ小さいほど，２つの結果は似たものになり，より正確な推定結果となる。このように実証分析ではパイプの幅が可能な限り小さくなる工夫が必要になる。その１つが標本の大きさ<code class="docutils literal notranslate"><span class="pre">n</span></code>である。直感的にわかると思うが，<code class="docutils literal notranslate"><span class="pre">n</span></code>が増えるとパイプは細くなり，極限<span class="math notranslate nohighlight">\(n\rightarrow\infty\)</span>（即ち，標本の大きさと母集団の大きさの差が限りなくゼロに近づく）ではパイプの形が直線（母集団回帰式）に近づくことは容易にイメージできるのではないだろうか。このように，実証分析において標本の大きさは非常に重要な役割を果たすことになる。</p>
+<p>（注意）</p>
+<ul class="simple">
+<li><p>推定量の<strong>一致性</strong>が満たされる場合に，パイプが母集団回帰式に収束することになるが，標本の大きさ<code class="docutils literal notranslate"><span class="pre">n</span></code>を限りなく増やせば一致性が必ず成立するとは限らない。ある仮定のもとでのみ推定量は一致性を満たすことになる。</p></li>
+<li><p>不偏性は満たさないが一致性を満たす推定量も存在する。</p></li>
+</ul>
+<hr class="docutils" />
+<p>—– Give it a try! —–</p>
 <p>標本の大きさ<code class="docutils literal notranslate"><span class="pre">n</span></code>を変えて試してみよう。例えば，10, 30, 100, 500, 1000。</p>
 </div>
 </div>
