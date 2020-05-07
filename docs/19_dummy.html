@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>２. Pythonを使った計量経済分析 &#8212; Pythonで学ぶ入門計量経済学</title>
+    <title>操作変数法と２段階OLS &#8212; Pythonで学ぶ入門計量経済学</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -30,8 +30,8 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="統計学の簡単な復習" href="7_Review_of_Statistics.html" />
-    <link rel="prev" title="Tipsと注意点" href="6_things_to_note.html" />
+    <link rel="next" title="離散選択モデル" href="20_dummy.html" />
+    <link rel="prev" title="GM仮定４が満たされない場合" href="18_dummy.html" />
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -101,7 +101,7 @@
   </ul>
   </li>
   <li class="active">
-    <a href="">２. Pythonを使った計量経済分析</a>
+    <a href="part_2.html">２. Pythonを使った計量経済分析</a>
   <ul class="nav sidenav_l2">
     <li class="">
       <a href="7_Review_of_Statistics.html">統計学の簡単な復習</a>
@@ -139,8 +139,8 @@
     <li class="">
       <a href="18_dummy.html">GM仮定４が満たされない場合</a>
     </li>
-    <li class="">
-      <a href="19_dummy.html">操作変数法と２段階OLS</a>
+    <li class="active">
+      <a href="">操作変数法と２段階OLS</a>
     </li>
     <li class="">
       <a href="20_dummy.html">離散選択モデル</a>
@@ -191,7 +191,7 @@
                 <!-- ipynb file if we had a myst markdown file -->
                 
                 <!-- Download raw file -->
-                <a class="dropdown-buttons" href="../_sources/docs/part_2.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
+                <a class="dropdown-buttons" href="../_sources/docs/19_dummy.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
                 <!-- Download PDF via print -->
                 <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
             </div>
@@ -225,88 +225,9 @@
         
               <div>
                 
-  <div class="section" id="python">
-<h1>２. <code class="docutils literal notranslate"><span class="pre">Python</span></code>を使った計量経済分析<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h1>
-<p><strong>内容</strong></p>
-<ol class="simple">
-<li><p>統計学の簡単な復習</p>
-<ul class="simple">
-<li><p>平均、分散、共分散などの計算方法</p></li>
-</ul>
-</li>
-<li><p>単回帰分析</p>
-<ul class="simple">
-<li><p>最も簡単な計量経済分析</p></li>
-</ul>
-</li>
-<li><p>重回帰分析</p>
-<ul class="simple">
-<li><p>複数の説明変数がある場合</p></li>
-</ul>
-</li>
-<li><p>残差分析</p>
-<ul class="simple">
-<li><p>残差を図示して回帰結果のチェック</p></li>
-</ul>
-</li>
-<li><p>推論</p>
-<ul class="simple">
-<li><p>仮説の検定など</p></li>
-</ul>
-</li>
-<li><p>大標本特性</p>
-<ul class="simple">
-<li><p>標本サイズが大きい場合の分析</p></li>
-</ul>
-</li>
-<li><p>ダミー変数</p>
-<ul class="simple">
-<li><p>質的変数を扱う場合</p></li>
-</ul>
-</li>
-<li><p>不均一分散</p>
-<ul class="simple">
-<li><p>残差の均一分散の過程が成立しない場合の対処方法</p></li>
-</ul>
-</li>
-<li><p>プーリング・データとパネル・データ</p>
-<ul class="simple">
-<li><p>データに時系列とクロスセクションの情報がある場合の分析</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">linearmodels</span></code></p>
-<ul class="simple">
-<li><p>パネル・データと操作変数法を扱うためのパッケージについての説明</p></li>
-</ul>
-</li>
-<li><p>パネル・データ分析</p>
-<ul class="simple">
-<li><p>パネル・データの利点を最大限に利用する手法</p></li>
-</ul>
-</li>
-<li><p>GM仮定４が満たされない場合</p>
-<ul class="simple">
-<li><p>残差の条件付き期待値がゼロでない場合のバイアスをシミュレーションで考える</p></li>
-</ul>
-</li>
-<li><p>操作変数法と２段階OLS</p>
-<ul class="simple">
-<li><p>残差の条件付き期待値がゼロでない場合の対処方法</p></li>
-</ul>
-</li>
-<li><p>離散選択モデル</p>
-<ul class="simple">
-<li><p>ロジット・モデルとプロビット・モデルを使った分析方法</p></li>
-</ul>
-</li>
-<li><p>制限従属変数モデル</p>
-<ul class="simple">
-<li><p>切断回帰、Tobit、Heckitモデルを考える</p></li>
-</ul>
-</li>
-</ol>
-<div class="toctree-wrapper compound">
-</div>
+  <div class="section" id="ols">
+<h1>操作変数法と２段階OLS<a class="headerlink" href="#ols" title="Permalink to this headline">¶</a></h1>
+<p>春山ゼミ生のみアクセス可：<a class="reference external" href="https://github.com/Haruyama-KobeU/Py4Etrics/">ここをクリック</a></p>
 </div>
 
 
@@ -318,8 +239,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="6_things_to_note.html" title="previous page">Tipsと注意点</a>
-    <a class='right-next' id="next-link" href="7_Review_of_Statistics.html" title="next page">統計学の簡単な復習</a>
+    <a class='left-prev' id="prev-link" href="18_dummy.html" title="previous page">GM仮定４が満たされない場合</a>
+    <a class='right-next' id="next-link" href="20_dummy.html" title="next page">離散選択モデル</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
