@@ -102,9 +102,25 @@
   </li>
   <li class="">
     <a href="part_2.html">２. Pythonを使った計量経済分析</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="7_Review_of_Statistics.html">統計学の簡単な復習</a>
+    </li>
+    <li class="">
+      <a href="8_Simple_Regression.html">単回帰分析（Simple Regression）</a>
+    </li>
+  </ul>
   </li>
   <li class="">
     <a href="part_3.html">３. 番外編</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="Gapminder.html">Gapminder</a>
+    </li>
+    <li class="">
+      <a href="Descriptive_stats_vs_Graphs.html">記述統計とグラフ</a>
+    </li>
+  </ul>
   </li>
 </ul>
 </nav>
@@ -217,11 +233,11 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#numpy-views-copy" class="nav-link">numpy：ビュー（views）とコピー（copy）</a>
+            <a href="#numpy-views-copy" class="nav-link">NumPy：ビュー（views）とコピー（copy）</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#pandas-views-copy" class="nav-link">pandas：ビュー（views）とコピー（copy）</a>
+            <a href="#pandas-views-copy" class="nav-link">Pandas：ビュー（views）とコピー（copy）</a>
         </li>
     
     </ul>
@@ -558,7 +574,7 @@
 <div class="section" id="id9">
 <h3>変数とオブジェクトの関係<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Python</span></code>では「全てがオブジェクト」と言われるが、ここでのオブジェクトとは<strong>属性</strong>（<strong>データ</strong>（値や性質など）と<strong>メソッド</strong>（変数特有の関数））から構成される集合体（「塊り」）を指す。例えば、数値<code class="docutils literal notranslate"><span class="pre">0.1</span></code>のオブジェクトを考えよう。<code class="docutils literal notranslate"><span class="pre">dir()</span></code>を使うとどのような属性から構成されているか表示される。</p>
-<div class="cell docutils container">
+<div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
@@ -697,7 +713,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>4558828336
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>4575909008
 </pre></div>
 </div>
 </div>
@@ -717,7 +733,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>4558828336
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>4575909008
 </pre></div>
 </div>
 </div>
@@ -744,7 +760,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>4588050416
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>4575909328
 </pre></div>
 </div>
 </div>
@@ -800,7 +816,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>4558321120
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>4546206736
 </pre></div>
 </div>
 </div>
@@ -844,7 +860,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>(True, 4558098368, 4558098368)
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>(True, 4576202240, 4576202240)
 </pre></div>
 </div>
 </div>
@@ -982,7 +998,7 @@
 </div>
 </div>
 <div class="section" id="numpy-views-copy">
-<h2><code class="docutils literal notranslate"><span class="pre">numpy</span></code>：ビュー（views）とコピー（copy）<a class="headerlink" href="#numpy-views-copy" title="Permalink to this headline">¶</a></h2>
+<h2>NumPy：ビュー（views）とコピー（copy）<a class="headerlink" href="#numpy-views-copy" title="Permalink to this headline">¶</a></h2>
 <p>リストの「浅いコピー」と「深いコピー」の問題は<code class="docutils literal notranslate"><span class="pre">numpy</span></code>にも存在する。しかし、これも<code class="docutils literal notranslate"><span class="pre">np.copy()</span></code>関数や<code class="docutils literal notranslate"><span class="pre">array</span></code>型のメソッド<code class="docutils literal notranslate"><span class="pre">.copy()</span></code>で回避することができる。また類似する問題としてコピー（copy）とビュー（views）の違いがある。以下ではこの問題を説明する。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1094,7 +1110,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">views</span></code>の役目はなんなのか、という疑問が生じる。<code class="docutils literal notranslate"><span class="pre">.copy()</span></code>は新たにオブジェクトを生成するが、<code class="docutils literal notranslate"><span class="pre">views</span></code>であれば新たなオブジェクトを生成する必要がない。その分、処理速度を早くすることが可能となるのである。しかし、実証分析で行う「通常」のデータ処理であれば<code class="docutils literal notranslate"><span class="pre">.copy()</span></code>で十分であろう。</p>
 </div>
 <div class="section" id="pandas-views-copy">
-<h2><code class="docutils literal notranslate"><span class="pre">pandas</span></code>：ビュー（views）とコピー（copy）<a class="headerlink" href="#pandas-views-copy" title="Permalink to this headline">¶</a></h2>
+<h2>Pandas：ビュー（views）とコピー（copy）<a class="headerlink" href="#pandas-views-copy" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">numpy</span></code>と同じように<code class="docutils literal notranslate"><span class="pre">pandas</span></code>もビュー（views）とコピー（copy）の問題が存在する。確認するために、次のコードを考えよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

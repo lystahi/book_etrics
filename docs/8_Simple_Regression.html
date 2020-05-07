@@ -76,6 +76,29 @@
   </li>
   <li class="">
     <a href="part_1.html">１. Pythonの基礎</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="0_Preparations.html">ツールのインストールと説明</a>
+    </li>
+    <li class="">
+      <a href="1_Python_Basics.html">Pythonの基礎</a>
+    </li>
+    <li class="">
+      <a href="2_NumPy.html">NumPy</a>
+    </li>
+    <li class="">
+      <a href="3_Pandas.html">Pandas</a>
+    </li>
+    <li class="">
+      <a href="4_Matplotlib.html">Matplotlib</a>
+    </li>
+    <li class="">
+      <a href="5_SciPy_stats.html">SciPy</a>
+    </li>
+    <li class="">
+      <a href="6_things_to_note.html">Tipsと注意点</a>
+    </li>
+  </ul>
   </li>
   <li class="active">
     <a href="part_2.html">２. Pythonを使った計量経済分析</a>
@@ -90,6 +113,14 @@
   </li>
   <li class="">
     <a href="part_3.html">３. 番外編</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="Gapminder.html">Gapminder</a>
+    </li>
+    <li class="">
+      <a href="Descriptive_stats_vs_Graphs.html">記述統計とグラフ</a>
+    </li>
+  </ul>
   </li>
 </ul>
 </nav>
@@ -884,8 +915,8 @@ dtype: float64
 Dep. Variable:                   wage   R-squared:                       0.165
 Model:                            OLS   Adj. R-squared:                  0.163
 Method:                 Least Squares   F-statistic:                     103.4
-Date:                Wed, 06 May 2020   Prob (F-statistic):           2.78e-22
-Time:                        11:17:08   Log-Likelihood:                -1385.7
+Date:                Thu, 07 May 2020   Prob (F-statistic):           2.78e-22
+Time:                        10:11:25   Log-Likelihood:                -1385.7
 No. Observations:                 526   AIC:                             2775.
 Df Residuals:                     524   BIC:                             2784.
 Df Model:                           1                                         
@@ -1328,8 +1359,8 @@ educ           0.0827      0.008     10.935      0.000       0.068       0.098
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    2.843491
-Y            0.311583
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    2.544407
+Y            0.371471
 dtype: float64
 </pre></div>
 </div>
@@ -1361,8 +1392,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    1.158763
-X            0.423129
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    0.686758
+X            0.551488
 dtype: float64
 </pre></div>
 </div>
@@ -1385,8 +1416,9 @@ dtype: float64
     <span class="n">b1hat_list</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># OLS推定量を入れる空リスト    </span>
     
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>  <span class="c1"># N 回のループ</span>
+        <span class="c1"># for loopの内側にu,x,yを置くことにより，N回のそれぞれの回帰分析で異なる値を使う</span>
         <span class="n">u</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">su</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># for loopの外に置くことにより，N回の回帰分析で同じxを使う</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">b0</span> <span class="o">+</span> <span class="n">b1</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">u</span>
         <span class="n">df_sim</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
         <span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;Y ~ X&#39;</span>
@@ -1395,7 +1427,7 @@ dtype: float64
         <span class="n">b0hat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res_sim</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># 定数項の値をリストに追加</span>
         <span class="n">b1hat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res_sim</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># スロープ係数の値をリストに追加</span>
         
-    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">b0hat_list</span><span class="p">,</span> <span class="n">b1hat_list</span>  <span class="c1"># N回ループ終了後に返すオブジェクト</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">b0hat_list</span><span class="p">,</span> <span class="n">b1hat_list</span>  <span class="c1"># N回ループ終了後にタプルとして返すオブジェクト</span>
 </pre></div>
 </div>
 </div>
@@ -1443,7 +1475,7 @@ dtype: float64
 <p><code class="docutils literal notranslate"><span class="pre">y</span></code>の理論値を図示</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>  <span class="c1"># 1000回のループで図示</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>  <span class="c1"># N回のループで図示</span>
     <span class="n">y_val</span> <span class="o">=</span> <span class="n">b0hat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">b1hat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x_val</span>  <span class="c1"># yの予測値</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span><span class="n">y_val</span><span class="p">,</span> <span class="s1">&#39;grey&#39;</span><span class="p">)</span>  <span class="c1"># yの予測値を図示</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
@@ -1458,7 +1490,9 @@ dtype: float64
 <img alt="../_images/8_Simple_Regression_125_0.png" src="../_images/8_Simple_Regression_125_0.png" />
 </div>
 </div>
-<p>上のコードの最後から２行目に<code class="docutils literal notranslate"><span class="pre">f'{N}</span> <span class="pre">rounds</span> <span class="pre">of</span> <span class="pre">OLS</span> <span class="pre">simulation'</span></code>とある。文字列の前に<code class="docutils literal notranslate"><span class="pre">f</span></code>を置き、文字列の中で変数を<code class="docutils literal notranslate"><span class="pre">{}</span></code>で囲むと変数の値を代入してくれるのである。これを<code class="docutils literal notranslate"><span class="pre">f-string</span></code>と呼ぶ。</p>
+<p>上のコード・ブロックの最後から２行目に<code class="docutils literal notranslate"><span class="pre">f'{N}</span> <span class="pre">rounds</span> <span class="pre">of</span> <span class="pre">OLS</span> <span class="pre">simulation'</span></code>とある。文字列の前に<code class="docutils literal notranslate"><span class="pre">f</span></code>を置き、文字列の中で変数を<code class="docutils literal notranslate"><span class="pre">{}</span></code>で囲むと変数の値を代入してくれるのである。これを<code class="docutils literal notranslate"><span class="pre">f-string</span></code>と呼ぶ。</p>
+<p><strong>＜上の図の含意＞</strong></p>
+<p>同じ回帰式で<code class="docutils literal notranslate"><span class="pre">N</span></code>回のシミュレーションを行い，<code class="docutils literal notranslate"><span class="pre">N</span></code>個の回帰曲線を重ねて描いているためパイプのような形になっている。実際の実証分析ではこのような繰り返しの試行は不可能であり一度だけである。即ち，<code class="docutils literal notranslate"><span class="pre">N</span></code>個の回帰曲線の内の１つだけを結果として表示することになる。これは推定量（<span class="math notranslate nohighlight">\(\hat{\beta}_0\)</span>と<span class="math notranslate nohighlight">\(\hat{\beta}_0\)</span>）が確率変数であるためである。図のパイプの幅が大きければ，データを再度取得し推定する度に回帰曲線の位置が大きく変わってしまう。それを最小限に抑えるために，即ち，パイプの幅を可能な限り細くするために工夫が必要となる。直感的にわかると思うが，標本の大きさ<code class="docutils literal notranslate"><span class="pre">n</span></code>が増えるとパイプの幅は細くなり，より正確な推計結果を得ることが可能となる。例えば，標本の大きさが母集団に近づけばパイプの形が線（母集団回帰式）に近づいて行くことは容易に想像できる。従って，実証分析において標本の大きさは正に死活問題なのである。</p>
 <p>標本の大きさ<code class="docutils literal notranslate"><span class="pre">n</span></code>を変えて試してみよう。例えば，10, 30, 100, 500, 1000。</p>
 </div>
 </div>

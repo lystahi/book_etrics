@@ -615,28 +615,21 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "heading_collapsed": true
-   },
+   "metadata": {},
    "source": [
     "## 変数とオブジェクト"
    ]
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "heading_collapsed": true,
-    "hidden": true
-   },
+   "metadata": {},
    "source": [
     "### 変数とオブジェクトの関係"
    ]
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "source": [
     "`Python`では「全てがオブジェクト」と言われるが、ここでのオブジェクトとは**属性**（**データ**（値や性質など）と**メソッド**（変数特有の関数））から構成される集合体（「塊り」）を指す。例えば、数値`0.1`のオブジェクトを考えよう。`dir()`を使うとどのような属性から構成されているか表示される。"
    ]
@@ -645,7 +638,9 @@
    "cell_type": "code",
    "execution_count": 17,
    "metadata": {
-    "hidden": true
+    "tags": [
+     "output_scroll"
+    ]
    },
    "outputs": [
     {
@@ -721,9 +716,7 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "source": [
     "例えば、\n",
     "* `real`は、数値の実数部を示す属性であり、`0.1`の実数数値データである。\n",
@@ -733,9 +726,7 @@
   {
    "cell_type": "code",
    "execution_count": 18,
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "outputs": [
     {
      "data": {
@@ -755,9 +746,7 @@
   {
    "cell_type": "code",
    "execution_count": 19,
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "outputs": [
     {
      "data": {
@@ -776,9 +765,7 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "source": [
     "上の例では、`=`を使い`a`や`x`などの変数に「代入」していないことに注意しよう。これは変数がなくても`0.1`はオブジェクトとして存在していることを示している。では、変数とオブジェクトにはどのような関係があるのだろう。変数`a`を導入するために次のように書いてみよう。"
    ]
@@ -786,9 +773,7 @@
   {
    "cell_type": "code",
    "execution_count": 20,
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "outputs": [
     {
      "data": {
@@ -808,9 +793,7 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "source": [
     "以前、次の説明をした。\n",
     "```\n",
@@ -826,8 +809,7 @@
   {
    "cell_type": "markdown",
    "metadata": {
-    "heading_collapsed": true,
-    "hidden": true
+    "heading_collapsed": true
    },
    "source": [
     "### オブジェクトとメモリー・アドレス"
@@ -1125,8 +1107,7 @@
   {
    "cell_type": "markdown",
    "metadata": {
-    "heading_collapsed": true,
-    "hidden": true
+    "heading_collapsed": true
    },
    "source": [
     "### 「浅いコピー」と「深いコピー」"
@@ -1488,7 +1469,7 @@
     "heading_collapsed": true
    },
    "source": [
-    "## `numpy`：ビュー（views）とコピー（copy）"
+    "## NumPy：ビュー（views）とコピー（copy）"
    ]
   },
   {
@@ -1744,18 +1725,14 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "heading_collapsed": true
-   },
+   "metadata": {},
    "source": [
-    "## `pandas`：ビュー（views）とコピー（copy）"
+    "## Pandas：ビュー（views）とコピー（copy）"
    ]
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "source": [
     "`numpy`と同じように`pandas`もビュー（views）とコピー（copy）の問題が存在する。確認するために、次のコードを考えよう。"
    ]
@@ -1763,9 +1740,7 @@
   {
    "cell_type": "code",
    "execution_count": 51,
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "outputs": [
     {
      "data": {
@@ -1839,9 +1814,7 @@
   {
    "cell_type": "code",
    "execution_count": 52,
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "outputs": [
     {
      "data": {
@@ -1901,9 +1874,7 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "source": [
     "`.iloc[]`により`view`が生成されている。\n",
     "\n",
@@ -1913,9 +1884,7 @@
   {
    "cell_type": "code",
    "execution_count": 53,
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "outputs": [
     {
      "data": {
@@ -1988,9 +1957,7 @@
   {
    "cell_type": "code",
    "execution_count": 54,
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "outputs": [
     {
      "data": {
@@ -2049,9 +2016,7 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "source": [
     "ここではスライシングで生成した場合を考えたが、他の場合でも`view`になったり`copy`になったりする。実は、`numpy`と同様に場合わけが複雑だが、`numpy`の場合よりも`view`なのか`copy`なのかの判別が非常に難しい。しかし、`pandas`は`views`**かもしれない**`DataFrame`や`Series`に変更を加えると警告を出す仕組みになっている。`df_slice`を使って説明する。\n",
     "\n",
@@ -2070,9 +2035,7 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "source": [
     "この警告が出る場合は、`views`の疑いが高い（確定ではない）ので、`df`のメソッド`.copy()`を使って「深いコピー」を生成することを薦める。以下の例を考えよう。"
    ]
@@ -2080,9 +2043,7 @@
   {
    "cell_type": "code",
    "execution_count": 55,
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "outputs": [
     {
      "data": {
@@ -2143,9 +2104,7 @@
   {
    "cell_type": "code",
    "execution_count": 56,
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "outputs": [
     {
      "data": {
@@ -2218,9 +2177,7 @@
   {
    "cell_type": "code",
    "execution_count": 57,
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "outputs": [
     {
      "data": {
@@ -2280,9 +2237,7 @@
   {
    "cell_type": "code",
    "execution_count": 58,
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "outputs": [
     {
      "data": {
@@ -2341,15 +2296,14 @@
   },
   {
    "cell_type": "markdown",
-   "metadata": {
-    "hidden": true
-   },
+   "metadata": {},
    "source": [
     "`df_copy`は影響を受けていないが、`df_slice`の値は元のデータの変化を反映している。"
    ]
   }
  ],
  "metadata": {
+  "celltoolbar": "Tags",
   "kernel_info": {
    "name": "py4etrics"
   },
